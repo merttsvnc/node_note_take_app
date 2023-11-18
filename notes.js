@@ -2,18 +2,24 @@ const fs = require('fs')
 const chalk = require('chalk')
 
 const addNote = (title, body) => {
-  const notes = loadNotes()
-  const duplicateNote = notes.find((note) => note.title === title)
+  try {
+    const notes = loadNotes()
+    const duplicateNote = notes.find((note) => note.title === title)
 
-  if (!duplicateNote) {
-    notes.push({
-      title,
-      body,
-    })
-    saveNotes(notes)
-    console.log(chalk.green.inverse('New note added!'))
-  } else {
-    console.log(chalk.red.inverse('Note title taken!'))
+    if (!duplicateNote) {
+      notes.push({
+        title,
+        body,
+      })
+      saveNotes(notes)
+      console.log(chalk.green.inverse('New note added!'))
+    } else {
+      console.log(chalk.red.inverse('Note title taken!'))
+    }
+  } catch (error) {
+    console.error(
+      chalk.red.inverse('An error occurred while adding a note:', error.message)
+    )
   }
 }
 
@@ -22,14 +28,21 @@ const loadNotes = () => {
     const dataBuffer = fs.readFileSync('notes.json')
     const dataJSON = dataBuffer.toString()
     return JSON.parse(dataJSON)
-  } catch (e) {
+  } catch (error) {
+    console.error(chalk.yellow.inverse('Unable to load notes:', error.message))
     return []
   }
 }
 
 const saveNotes = (notes) => {
-  const dataJSON = JSON.stringify(notes)
-  fs.writeFileSync('notes.json', dataJSON)
+  try {
+    const dataJSON = JSON.stringify(notes)
+    fs.writeFileSync('notes.json', dataJSON)
+  } catch (error) {
+    console.error(
+      chalk.red.inverse('An error occurred while saving notes:', error.message)
+    )
+  }
 }
 
 // removeNote
