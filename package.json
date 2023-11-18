@@ -26,5 +26,12 @@
     "chalk": "^2.4.1",
     "validator": "^13.11.0",
     "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "mock-fs": "^5.2.0",
+    "sinon": "^17.0.1",
+    "strip-ansi": "^6.0.0"
   }
 }
