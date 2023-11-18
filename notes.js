@@ -2,6 +2,9 @@ const fs = require('fs')
 const chalk = require('chalk')
 const fileOperations = require('./fileOperations')
 
+const INVERSE_GREEN = chalk.inverse.green
+const INVERSE_RED = chalk.inverse.red
+
 const addNote = (title, body) => {
   try {
     const notes = fileOperations.loadNotes()
@@ -13,9 +16,9 @@ const addNote = (title, body) => {
         body,
       })
       fileOperations.saveNotes(notes)
-      console.log(chalk.green.inverse('New note added!'))
+      console.log(INVERSE_GREEN('New note added!'))
     } else {
-      console.log(chalk.red.inverse('Note title taken!'))
+      console.log(INVERSE_RED('Note title taken!'))
     }
   } catch (error) {
     console.error(
@@ -30,10 +33,10 @@ const removeNote = (title) => {
   const notesToKeep = notes.filter((note) => note.title !== title)
 
   if (notes.length > notesToKeep.length) {
-    console.log(chalk.green.inverse('Note removed!'))
+    console.log(INVERSE_GREEN('Note removed!'))
     fileOperations.saveNotes(notesToKeep)
   } else {
-    console.log(chalk.red.inverse('No note found!'))
+    console.log(INVERSE_RED('No note found!'))
   }
 }
 
@@ -52,7 +55,7 @@ const readNote = (title) => {
     console.log(chalk.inverse(note.title))
     console.log(note.body)
   } else {
-    console.log(chalk.red.inverse('No note found!'))
+    console.log(INVERSE_RED('No note found!'))
   }
 }
 
