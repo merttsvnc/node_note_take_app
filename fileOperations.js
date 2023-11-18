@@ -1,6 +1,8 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
+const NOTES_FILE = 'notes.json'
+
 const loadNotes = () => {
   try {
     const dataBuffer = fs.readFileSync('notes.json')
@@ -15,7 +17,7 @@ const loadNotes = () => {
 const saveNotes = (notes) => {
   try {
     const dataJSON = JSON.stringify(notes)
-    fs.writeFileSync('notes.json', dataJSON)
+    fs.writeFileSync(NOTES_FILE, dataJSON)
   } catch (error) {
     console.error(
       chalk.red.inverse('An error occurred while saving notes:', error.message)

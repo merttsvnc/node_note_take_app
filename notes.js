@@ -44,7 +44,7 @@ const listNotes = () => {
   notes.forEach((note) => console.log(note.title))
 }
 
-const readNotes = (title) => {
+const readNote = (title) => {
   const notes = fileOperations.loadNotes()
   const note = notes.find((note) => note.title === title)
 
@@ -60,5 +60,5 @@ module.exports = {
   addNote,
   removeNote,
   listNotes,
-  readNotes,
+  readNote,
 }
